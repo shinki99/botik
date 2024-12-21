@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  tarot-bot-1:
+    build: .
+    restart: always
+    volumes:
+      - ./logs:/var/log/tarot_bot
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+  tarot-bot-2:
+    build: .
+    restart: always
+    volumes:
+      - ./logs:/var/log/tarot_bot
+    env_file:
+      - .env.bot2
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+  # Добавьте аналогичные конфигурации для остальных ботов
+  # tarot-bot-3, tarot-bot-4, tarot-bot-5
+
+networks:
+  default:
+    driver: bridge
